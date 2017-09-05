@@ -98,4 +98,13 @@ public class RecipeApiController {
 		recipeRepo.save(recipe);
 		return recipe;
 	}
+	
+	@PostMapping("{recipeId}/instructions") 
+	public Recipe associateAnInstruction(@PathVariable long recipeId, @RequestBody Instruction instruction) {
+		instruction = instructionRepo.findOne(instruction.getId());
+		Recipe recipe = recipeRepo.findOne(recipeId);
+		recipe.addInstruction(instruction);
+		recipeRepo.save(recipe);
+		return recipe;
+	}
 }

@@ -1,5 +1,6 @@
 package com.libertymutual.goforcode.angryrecipe.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -43,6 +44,22 @@ public class Recipe {
 		this.ingredients = ingredients;
 		this.instructions = instructions;
 	}
+	
+	public void addIngredient(Ingredient ingredient) {
+		if (ingredients == null) {
+			ingredients = new ArrayList<Ingredient>();
+		} 
+		
+		ingredients.add(ingredient);
+	}
+	
+	public void addInstruction(Instruction instruction) {
+		if (instructions == null) {
+			instructions = new ArrayList<Instruction>();
+		} 
+		instructions.add(instruction);
+	}
+	
 
 	public Long getId() {
 		return id;

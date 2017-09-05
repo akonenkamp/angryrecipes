@@ -90,4 +90,12 @@ public class RecipeApiController {
 		return recipeRepo.save(recipe);
 	}
 
+	@PostMapping("{recipeId}/ingredients") 
+	public Recipe associateAnIngredient(@PathVariable long recipeId, @RequestBody Ingredient ingredient) {
+		ingredient = ingredientRepo.findOne(ingredient.getId());
+		Recipe recipe = recipeRepo.findOne(recipeId);
+		recipe.addIngredient(ingredient);
+		recipeRepo.save(recipe);
+		return recipe;
+	}
 }

@@ -44,7 +44,7 @@ public class RecipeApiControllerTests {
 		when(recipeRepo.findAll()).thenReturn(recipes);
 		
 		//act
-		List<Recipe> actual = controller.getAll();
+		List<Recipe> actual = controller.getAll(null);
 		
 		
 		//assert

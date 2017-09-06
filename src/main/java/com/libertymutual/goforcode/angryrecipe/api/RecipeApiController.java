@@ -50,8 +50,14 @@ public class RecipeApiController {
     }
 
     @GetMapping("")
-    public List<Recipe> getAll() {
-        return recipeRepo.findAll();
+    public List<Recipe> getAll(String partOfName) {
+        List<Recipe> returnList;
+        if (partOfName != null) {
+            returnList = recipeRepo.findByTitleContaining(partOfName);
+        } else {
+            returnList = recipeRepo.findAll();
+        }
+        return returnList;
     }
 
     @GetMapping("{id}")
@@ -99,7 +105,8 @@ public class RecipeApiController {
     @PostMapping("{recipeId}/instructions")
     public Recipe associateAnInstruction(@PathVariable long recipeId, @RequestBody Instruction instruction) {
         instructionRepo.save(instruction);
-        instruction = instructionRepo.findOne(instruction.getId());
+        long instructionId = instruction.getId();
+        instruction = instructionRepo.findOne(instructionId);
         Recipe recipe = recipeRepo.findOne(recipeId);
         recipe.addInstruction(instruction);
         recipeRepo.save(recipe);
@@ -110,7 +117,7 @@ public class RecipeApiController {
     public Recipe deleteAnIngredient(@PathVariable long id, @PathVariable long ing_id) {
         try {
             Recipe recipe = recipeRepo.findOne(id);
-//            Ingredient ingredient = ingredientRepo.findOne(ing_id);
+            // Ingredient ingredient = ingredientRepo.findOne(ing_id);
             ingredientRepo.delete(ing_id);
             recipeRepo.flush();
             return recipe;
@@ -118,7 +125,7 @@ public class RecipeApiController {
             return null;
         }
     }
-    
+
     @DeleteMapping("{id}/instructions/{ins_id}")
     public Recipe deleteAnInstruction(@PathVariable long id, @PathVariable long ins_id) {
         try {

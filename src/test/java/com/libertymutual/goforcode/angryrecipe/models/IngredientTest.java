@@ -45,5 +45,31 @@ public class IngredientTest {
 		
 	}
 	
+	@Test 
+	public void test_set_unit_method() {
+		//arrange
+		String unit = "tablespoon";
+		ingredient.setUnit(unit);
+		
+		//act
+		String actual = ingredient.getUnit();
+		
+		//assert
+		assertThat(actual).isEqualTo(unit);
+	}
+	
+	@Test 
+	
+	public void test_set_quantity_function() {
+		//arrange
+		double quantity = 4.5;
+		ingredient.setQuantity(quantity);
+	
+		//act
+		double actualQuantity = ingredient.getQuantity();
+		
+		//assert 
+		assertThat(actualQuantity).isEqualTo(actualQuantity);
+	}
 
 }

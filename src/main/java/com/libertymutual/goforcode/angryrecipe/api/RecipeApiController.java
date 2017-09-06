@@ -88,7 +88,8 @@ public class RecipeApiController {
     @PostMapping("{recipeId}/ingredients")
     public Recipe associateAnIngredient(@PathVariable long recipeId, @RequestBody Ingredient ingredient) {
         ingredientRepo.save(ingredient);
-        ingredient = ingredientRepo.findOne(ingredient.getId());
+        long ingredientId = ingredient.getId();
+        ingredient = ingredientRepo.findOne(ingredientId);
         Recipe recipe = recipeRepo.findOne(recipeId);
         recipe.addIngredient(ingredient);
         recipeRepo.save(recipe);

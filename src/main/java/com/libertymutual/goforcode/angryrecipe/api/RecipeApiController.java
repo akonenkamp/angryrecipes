@@ -87,6 +87,7 @@ public class RecipeApiController {
 
     @PostMapping("{recipeId}/ingredients")
     public Recipe associateAnIngredient(@PathVariable long recipeId, @RequestBody Ingredient ingredient) {
+        ingredientRepo.save(ingredient);
         ingredient = ingredientRepo.findOne(ingredient.getId());
         Recipe recipe = recipeRepo.findOne(recipeId);
         recipe.addIngredient(ingredient);
@@ -107,9 +108,10 @@ public class RecipeApiController {
     @DeleteMapping("{id}/ingredients/{ing_id}")
     public Recipe deleteAnIngredient(@PathVariable long id, @PathVariable long ing_id) {
         try {
-            ingredientRepo.delete(ing_id);
             Recipe recipe = recipeRepo.findOne(id);
-            // recipeRepo.save(recipe);
+//            Ingredient ingredient = ingredientRepo.findOne(ing_id);
+            ingredientRepo.delete(ing_id);
+            recipeRepo.flush();
             return recipe;
         } catch (EmptyResultDataAccessException erdae) {
             return null;
@@ -119,18 +121,10 @@ public class RecipeApiController {
     @DeleteMapping("{id}/instructions/{ins_id}")
     public Recipe deleteAnInstruction(@PathVariable long id, @PathVariable long ins_id) {
         try {
-            System.out.println("In delete method");
             Recipe recipe = recipeRepo.findOne(id);
-            System.out.println("Found the recipe");
             Instruction instruction = instructionRepo.findOne(ins_id);
-            System.out.println("Found the instruction");
-//            instruction.setRecipe(null);
-            System.out.println("Set instruction's recipe to null");
             instructionRepo.delete(ins_id);
-            System.out.println("Deleted the instruction");
             recipeRepo.flush();
-            System.out.println("Flushed the recipeRepo");
-//            recipeRepo.save(recipe);
             return recipe;
         } catch (EmptyResultDataAccessException erdae) {
             return null;

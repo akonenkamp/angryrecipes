@@ -19,10 +19,11 @@ public class Instruction {
 	private Long id;
 
 	private String instruction;
+	
 	@ManyToOne
 	private Recipe recipe;
 	
-
+	
 	public Instruction() {}
 	
 	public Instruction(String instruction) {

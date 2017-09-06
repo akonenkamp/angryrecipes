@@ -1,5 +1,6 @@
 package com.libertymutual.goforcode.angryrecipe.models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,11 +23,10 @@ public class Ingredient {
 	
 	@ManyToOne
 	private Recipe recipe;
-	
-	
-	
 	private String name;
 	private String unit;
+	
+	@Column(nullable=true)
 	private Double quantity;
 	
 	public Ingredient() {}

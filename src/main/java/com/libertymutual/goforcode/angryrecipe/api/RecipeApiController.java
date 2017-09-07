@@ -53,7 +53,7 @@ public class RecipeApiController {
     public List<Recipe> getAll(String partOfName) {
         List<Recipe> returnList;
         if (partOfName != null) {
-            returnList = recipeRepo.findByTitleContaining(partOfName);
+            returnList = recipeRepo.findByTitleContainingIgnoreCase(partOfName);
         } else {
             returnList = recipeRepo.findAll();
         }

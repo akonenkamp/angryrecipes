@@ -11,6 +11,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.dao.EmptyResultDataAccessException;
 
+import com.libertymutual.goforcode.angryrecipe.models.Ingredient;
+import com.libertymutual.goforcode.angryrecipe.models.Instruction;
 import com.libertymutual.goforcode.angryrecipe.models.Recipe;
 import com.libertymutual.goforcode.angryrecipe.repositories.IngredientRepository;
 import com.libertymutual.goforcode.angryrecipe.repositories.InstructionRepository;
@@ -133,7 +135,43 @@ public class RecipeApiControllerTests {
 		verify(recipeRepo).save(recipe);
 	}
 	
+	@Test
 	
+	public void test_that_associate_an_ingredient_save_to_recipe_repo() {
+		
+		//arrange
+		Recipe recipe = new Recipe();
+		when(recipeRepo.findOne(3l)).thenReturn(recipe);
+		Ingredient ingredient = new Ingredient();
+		ingredient.setId(2l);
+		when(ingredientRepo.findOne(2l)).thenReturn(ingredient);
+		
+		//act 
+		Recipe actualRecipe = controller.associateAnIngredient(3l, ingredient);
+		//assert 
+		
+		assertThat(actualRecipe).isSameAs(recipe);
+		assertThat(actualRecipe.getIngredients()).contains(ingredient);
+		verify(recipeRepo).save(recipe);
+	}
+	
+	
+	public void test_that_associate_the_instruction_save_to_repo() {
+		//arrange
+		Recipe recipe = new Recipe();
+		when(recipeRepo.findOne(3l)).thenReturn(recipe);
+		Instruction instruction = new Instruction();
+		instruction.setId(2l);
+		when(instructionRepo.findOne(2l)).thenReturn(instruction);
+		
+		//act
+		Recipe actualRecipe = controller.associateAnInstruction(3l, instruction);
+		
+		//assert
+		assertThat(actualRecipe).isSameAs(recipe);
+		assertThat(actualRecipe.getInstructions()).contains(instruction);
+		verify(recipeRepo).save(recipe);
+	}
 	
 	
 	

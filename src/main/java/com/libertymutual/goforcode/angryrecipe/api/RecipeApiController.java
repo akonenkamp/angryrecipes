@@ -90,6 +90,24 @@ public class RecipeApiController {
         recipe.setId(id);
         return recipeRepo.save(recipe);
     }
+    
+    @PutMapping("{id}/instructions/{ins_id}")
+    public Recipe updateInstruction(@RequestBody Instruction instruction, @PathVariable long id, @PathVariable long ins_id) {
+        Recipe recipe = recipeRepo.findOne(id);
+        instruction.setId(ins_id);
+        instruction.setRecipe(recipe);
+        instructionRepo.save(instruction);
+        return recipeRepo.findOne(id);
+    }
+    
+    @PutMapping("{id}/ingredients/{ing_id}")
+    public Recipe updateIngredient(@RequestBody Ingredient ingredient, @PathVariable long id, @PathVariable long ing_id) {
+        Recipe recipe = recipeRepo.findOne(id);
+        ingredient.setId(ing_id);
+        ingredient.setRecipe(recipe);
+        ingredientRepo.save(ingredient);
+        return recipeRepo.findOne(id);
+    }
 
     @PostMapping("{recipeId}/ingredients")
     public Recipe associateAnIngredient(@PathVariable long recipeId, @RequestBody Ingredient ingredient) {

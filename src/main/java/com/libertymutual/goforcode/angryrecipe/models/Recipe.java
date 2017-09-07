@@ -25,7 +25,8 @@ public class Recipe {
     private String title;
     private String description;
     private int minutes;
-
+    private String recipePictureURL;
+    
     @OneToMany(mappedBy="recipe", cascade=CascadeType.ALL)
     private List<Ingredient> ingredients;
     
@@ -114,5 +115,13 @@ public class Recipe {
     public void setInstructions(List<Instruction> instructions) {
         this.instructions = instructions;
     }
+
+	public String getRecipePictureURL() {
+		return recipePictureURL;
+	}
+
+	public void setRecipePictureURL(String recipePictureURL) {
+		this.recipePictureURL = recipePictureURL;
+	}
 
 }

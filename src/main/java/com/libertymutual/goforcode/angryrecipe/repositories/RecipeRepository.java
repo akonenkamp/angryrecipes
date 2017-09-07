@@ -10,5 +10,5 @@ import com.libertymutual.goforcode.angryrecipe.models.Recipe;
 @Repository 
 public interface RecipeRepository extends JpaRepository<Recipe, Long>{
 
-    List<Recipe> findByTitleContaining(String partOfName);
+    List<Recipe> findByTitleContainingIgnoreCase(String partOfName);
 }

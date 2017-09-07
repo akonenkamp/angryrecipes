@@ -19,6 +19,7 @@ public class Instruction {
 	private Long id;
 
 	private String instruction;
+	private String instructionPictureURL;
 	
 	@ManyToOne(optional=false)
 	private Recipe recipe;
@@ -52,6 +53,14 @@ public class Instruction {
 
 	public void setRecipe(Recipe recipe) {
 		this.recipe = recipe;
+	}
+
+	public String getInstructionPictureURL() {
+		return instructionPictureURL;
+	}
+
+	public void setInstructionPictureURL(String instructionPictureURL) {
+		this.instructionPictureURL = instructionPictureURL;
 	}
 
 }

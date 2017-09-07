@@ -21,8 +21,9 @@ public class Ingredient {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	
-	@ManyToOne
+	@ManyToOne(optional=false)
 	private Recipe recipe;
+	
 	private String name;
 	private String unit;
 	

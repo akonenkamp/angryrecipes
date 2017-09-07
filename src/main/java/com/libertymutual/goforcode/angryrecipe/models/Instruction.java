@@ -20,7 +20,7 @@ public class Instruction {
 
 	private String instruction;
 	
-	@ManyToOne
+	@ManyToOne(optional=false)
 	private Recipe recipe;
 	
 	

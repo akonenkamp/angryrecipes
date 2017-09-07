@@ -95,7 +95,7 @@ public class RecipeApiController {
     public Recipe associateAnIngredient(@PathVariable long recipeId, @RequestBody Ingredient ingredient) {
         ingredientRepo.save(ingredient);
         long ingredientId = ingredient.getId();
-        ingredient = ingredientRepo.findOne(ingredient.getId());
+        ingredient = ingredientRepo.findOne(ingredientId);
         Recipe recipe = recipeRepo.findOne(recipeId);
         recipe.addIngredient(ingredient);
         recipeRepo.save(recipe);
@@ -106,7 +106,7 @@ public class RecipeApiController {
     public Recipe associateAnInstruction(@PathVariable long recipeId, @RequestBody Instruction instruction) {
         instructionRepo.save(instruction);
         long instructionId = instruction.getId();
-        instruction = instructionRepo.findOne(instruction.getId());
+        instruction = instructionRepo.findOne(instructionId);
         Recipe recipe = recipeRepo.findOne(recipeId);
         recipe.addInstruction(instruction);
         recipeRepo.save(recipe);

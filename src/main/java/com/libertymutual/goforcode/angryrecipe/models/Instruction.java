@@ -25,7 +25,7 @@ public class Instruction {
 	@Column(nullable=true)
 	private String instructionPictureURL;
 	
-	private String stepNumber;
+	private Integer stepNumber;
 	
 	@ManyToOne
 	private Recipe recipe;
@@ -33,7 +33,7 @@ public class Instruction {
 	
 	public Instruction() {}
 	
-	public Instruction(String instruction, String stepNumber) {
+	public Instruction(String instruction, Integer stepNumber) {
 		this.instruction = instruction;
 		this.stepNumber = stepNumber;
 	}
@@ -70,11 +70,11 @@ public class Instruction {
 		this.instructionPictureURL = instructionPictureURL;
 	}
 
-	public String getStepNumber() {
+	public Integer getStepNumber() {
 		return stepNumber;
 	}
 
-	public void setStepNumber(String stepNumber) {
+	public void setStepNumber(Integer stepNumber) {
 		this.stepNumber = stepNumber;
 	}
 

@@ -32,6 +32,25 @@ public class RecipeApiControllerTests {
 		instructionRepo = mock(InstructionRepository.class);
 		controller = new RecipeApiController(recipeRepo, ingredientRepo, instructionRepo);
 	}
+	
+	@Test
+
+	public void test_get_all_returns_all_recipes_when_part_of_name_is_passed() {
+		// arrange
+		ArrayList<Recipe> recipes = new ArrayList<Recipe>();
+		recipes.add(new Recipe());
+		when(recipeRepo.findAll()).thenReturn(recipes);
+
+		// act
+		List<Recipe> actual = controller.getAll("something");
+
+		// assert
+		assertThat(actual.size()).isEqualTo(0);
+		verify(recipeRepo).findByTitleContainingIgnoreCase("something");
+
+	}
+	
+	
 
 	@Test
 

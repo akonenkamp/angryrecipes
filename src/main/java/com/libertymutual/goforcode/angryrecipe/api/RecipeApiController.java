@@ -87,11 +87,12 @@ public class RecipeApiController {
 
     @PutMapping("{id}")
     public Recipe update(@RequestBody Recipe recipe, @PathVariable long id) {
-        Recipe existingRecipe = recipeRepo.findOne(id);
-        existingRecipe.setTitle(recipe.getTitle());
-        existingRecipe.setDescription(recipe.getDescription());
-        existingRecipe.setMinutes(recipe.getMinutes());
-        return recipeRepo.save(existingRecipe);
+    	Recipe existingRecipe = recipeRepo.findOne(id);
+    	existingRecipe.setTitle(recipe.getTitle());
+    	existingRecipe.setDescription(recipe.getDescription());
+    	existingRecipe.setMinutes(recipe.getMinutes());
+        recipe.setId(id);
+        return recipeRepo.save(recipe);
     }
     
     @PutMapping("{id}/instructions/{ins_id}")
@@ -138,7 +139,8 @@ public class RecipeApiController {
     public Recipe deleteAnIngredient(@PathVariable long id, @PathVariable long ing_id) {
         try {
             Recipe recipe = recipeRepo.findOne(id);
-            // Ingredient ingredient = ingredientRepo.findOne(ing_id);
+            
+            //Ingredient ingredient = ingredientRepo.findOne(ing_id);
             ingredientRepo.delete(ing_id);
             recipeRepo.flush();
             return recipe;

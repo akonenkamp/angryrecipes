@@ -1,5 +1,6 @@
 package com.libertymutual.goforcode.angryrecipe.models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,9 +19,13 @@ public class Instruction {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
+	@Column(nullable=false)
 	private String instruction;
 	
-	@ManyToOne(optional=false)
+	@Column(nullable=true)
+	private String instructionPictureURL;
+	
+	@ManyToOne
 	private Recipe recipe;
 	
 	
@@ -52,6 +57,14 @@ public class Instruction {
 
 	public void setRecipe(Recipe recipe) {
 		this.recipe = recipe;
+	}
+
+	public String getInstructionPictureURL() {
+		return instructionPictureURL;
+	}
+
+	public void setInstructionPictureURL(String instructionPictureURL) {
+		this.instructionPictureURL = instructionPictureURL;
 	}
 
 }

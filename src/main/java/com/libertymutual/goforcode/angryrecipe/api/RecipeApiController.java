@@ -87,8 +87,11 @@ public class RecipeApiController {
 
     @PutMapping("{id}")
     public Recipe update(@RequestBody Recipe recipe, @PathVariable long id) {
-        recipe.setId(id);
-        return recipeRepo.save(recipe);
+        Recipe existingRecipe = recipeRepo.findOne(id);
+        existingRecipe.setTitle(recipe.getTitle());
+        existingRecipe.setDescription(recipe.getDescription());
+        existingRecipe.setMinutes(recipe.getMinutes());
+        return recipeRepo.save(existingRecipe);
     }
     
     @PutMapping("{id}/instructions/{ins_id}")

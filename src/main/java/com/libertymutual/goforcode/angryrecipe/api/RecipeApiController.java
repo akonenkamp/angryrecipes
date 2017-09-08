@@ -40,10 +40,10 @@ public class RecipeApiController {
         ingredients.add(new Ingredient("Pineapple", "Cups", 2d));
 
         List<Instruction> instructions = new ArrayList<Instruction>();
-        instructions.add(new Instruction("Flatten dough"));
-        instructions.add(new Instruction("Put sauce on dough"));
-        instructions.add(new Instruction("Put toppings on sauce"));
-        instructions.add(new Instruction("Bake at 350 for 25 minutes"));
+        instructions.add(new Instruction("Flatten dough", "Step 1"));
+        instructions.add(new Instruction("Put sauce on dough", "Step 2"));
+        instructions.add(new Instruction("Put toppings on sauce", "Step 3"));
+        instructions.add(new Instruction("Bake at 350 for 25 minutes", "Step 4"));
 
         recipeRepo.save(new Recipe("Pineapple Pepperoni Pizza", "Pizza with pineapples and pepperonis", 40, ingredients, instructions));
 

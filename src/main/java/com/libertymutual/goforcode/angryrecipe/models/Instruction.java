@@ -25,14 +25,17 @@ public class Instruction {
 	@Column(nullable=true)
 	private String instructionPictureURL;
 	
+	private String stepNumber;
+	
 	@ManyToOne
 	private Recipe recipe;
 	
 	
 	public Instruction() {}
 	
-	public Instruction(String instruction) {
+	public Instruction(String instruction, String stepNumber) {
 		this.instruction = instruction;
+		this.stepNumber = stepNumber;
 	}
 
 	public Long getId() {
@@ -65,6 +68,14 @@ public class Instruction {
 
 	public void setInstructionPictureURL(String instructionPictureURL) {
 		this.instructionPictureURL = instructionPictureURL;
+	}
+
+	public String getStepNumber() {
+		return stepNumber;
+	}
+
+	public void setStepNumber(String stepNumber) {
+		this.stepNumber = stepNumber;
 	}
 
 }

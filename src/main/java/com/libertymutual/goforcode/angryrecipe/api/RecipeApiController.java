@@ -135,7 +135,7 @@ public class RecipeApiController {
     public Recipe deleteAnIngredient(@PathVariable long id, @PathVariable long ing_id) {
         try {
             Recipe recipe = recipeRepo.findOne(id);
-            // Ingredient ingredient = ingredientRepo.findOne(ing_id);
+            //Ingredient ingredient = ingredientRepo.findOne(ing_id);
             ingredientRepo.delete(ing_id);
             recipeRepo.flush();
             return recipe;

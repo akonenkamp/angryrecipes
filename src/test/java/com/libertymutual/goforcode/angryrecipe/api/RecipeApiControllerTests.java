@@ -213,5 +213,56 @@ public class RecipeApiControllerTests {
 		verify(ingredientRepo).save(ingredient);
 		verify(recipeRepo, times(2)).findOne(3l);
 	}
+	
+@Test
+	public void test_delete_an_ingredient_throws_exception () {
+		//arrange 
+		
+		//Ingredient ingredient = new Ingredient();
+		when(ingredientRepo.findOne(3l)).thenThrow(new EmptyResultDataAccessException(0));
+		//when(ingredientRepo.findOne(3l)).thenReturn(ingredient);
+ 		
+		
+		//act
+ 		Recipe actual = controller.deleteOne(3l);
 
+ 		//assert
+ 		assertThat(actual).isNull();
+ 		verify(recipeRepo).findOne(3l);
+ }
+
+@Test
+public void test_delete_an_instruction_throws_exception () {
+	//arrange 
+	
+		//Ingredient ingredient = new Ingredient();
+		when(instructionRepo.findOne(3l)).thenThrow(new EmptyResultDataAccessException(0));
+		//when(ingredientRepo.findOne(3l)).thenReturn(ingredient);
+		
+	
+		//act
+		Recipe actual = controller.deleteOne(3l);
+
+		//assert
+		assertThat(actual).isNull();
+		verify(recipeRepo).findOne(3l);
+}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

@@ -119,7 +119,7 @@ public class RecipeApiControllerTests {
 	}
 
 	@Test
-	public void test_that_recipe_updates_and_saves_to_movie_repo() {
+	public void test_that_recipe_updates_and_saves_to_recipe_repo() {
 		// arrange
 		Recipe recipe = new Recipe();
 		when(recipeRepo.save(recipe)).thenReturn(recipe);
@@ -213,56 +213,66 @@ public class RecipeApiControllerTests {
 		verify(ingredientRepo).save(ingredient);
 		verify(recipeRepo, times(2)).findOne(3l);
 	}
-	
-@Test
-	public void test_delete_an_ingredient_throws_exception () {
-		//arrange 
-		
-		//Ingredient ingredient = new Ingredient();
-		when(ingredientRepo.findOne(3l)).thenThrow(new EmptyResultDataAccessException(0));
-		//when(ingredientRepo.findOne(3l)).thenReturn(ingredient);
- 		
-		
-		//act
- 		Recipe actual = controller.deleteOne(3l);
 
- 		//assert
- 		assertThat(actual).isNull();
- 		verify(recipeRepo).findOne(3l);
- }
+	@Test
+	public void test_delete_an_ingredient_throws_exception() {
+		// arrange
 
-@Test
-public void test_delete_an_instruction_throws_exception () {
-	//arrange 
-	
-		//Ingredient ingredient = new Ingredient();
-		when(instructionRepo.findOne(3l)).thenThrow(new EmptyResultDataAccessException(0));
-		//when(ingredientRepo.findOne(3l)).thenReturn(ingredient);
-		
-	
-		//act
-		Recipe actual = controller.deleteOne(3l);
+		// Ingredient ingredient = new Ingredient();
+		when(recipeRepo.findOne(3l)).thenThrow(new EmptyResultDataAccessException(0));
+		// when(ingredientRepo.findOne(3l)).thenReturn(ingredient);
 
-		//assert
+		// act
+		Recipe actual = controller.deleteAnIngredient(3l, 4l);
+
+		// assert
 		assertThat(actual).isNull();
 		verify(recipeRepo).findOne(3l);
-}
+	}
 
+	@Test
+	public void test_delete_an_instruction_throws_exception() {
+		// arrange
+
+		// Ingredient ingredient = new Ingredient();
+		when(recipeRepo.findOne(3l)).thenThrow(new EmptyResultDataAccessException(0));
+		// when(ingredientRepo.findOne(3l)).thenReturn(ingredient);
+
+		// act
+		Recipe actual = controller.deleteAnInstruction(3l, 4l);
+
+		// assert
+		assertThat(actual).isNull();
+		verify(recipeRepo).findOne(3l);
+	}
 	
+	@Test
+	public void test_delete_an_ingredient_from_repo() {
+		//arrange
+		Recipe recipe = new Recipe();
+		when(recipeRepo.findOne(3l)).thenReturn(recipe);
+		//act
+		Recipe actual = controller.deleteAnIngredient(3l, 4l);
+		//assert
+		verify(recipeRepo).findOne(3l);
+		verify(ingredientRepo).delete(4l);
+		verify(recipeRepo).flush();
+		assertThat(actual).isSameAs(recipe);
+	}
 	
+	@Test
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	public void test_delete_an_instruction_from_repo() {
+		//arrange
+				Recipe recipe = new Recipe();
+				when(recipeRepo.findOne(3l)).thenReturn(recipe);
+				//act
+				Recipe actual = controller.deleteAnInstruction(3l, 4l);
+				//assert
+				verify(recipeRepo).findOne(3l);
+				verify(instructionRepo).delete(4l);
+				verify(recipeRepo).flush();
+				assertThat(actual).isSameAs(recipe);
+	}
+
 }

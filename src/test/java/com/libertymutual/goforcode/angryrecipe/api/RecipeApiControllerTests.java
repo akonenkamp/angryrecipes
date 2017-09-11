@@ -32,6 +32,25 @@ public class RecipeApiControllerTests {
 		instructionRepo = mock(InstructionRepository.class);
 		controller = new RecipeApiController(recipeRepo, ingredientRepo, instructionRepo);
 	}
+	
+	@Test
+
+	public void test_get_all_returns_all_recipes_when_part_of_name_is_passed() {
+		// arrange
+		ArrayList<Recipe> recipes = new ArrayList<Recipe>();
+		recipes.add(new Recipe());
+		when(recipeRepo.findAll()).thenReturn(recipes);
+
+		// act
+		List<Recipe> actual = controller.getAll("something");
+
+		// assert
+		assertThat(actual.size()).isEqualTo(0);
+		verify(recipeRepo).findByTitleContainingIgnoreCase("something");
+
+	}
+	
+	
 
 	@Test
 
@@ -117,18 +136,45 @@ public class RecipeApiControllerTests {
 		assertThat(recipe).isSameAs(actualRecipe);
 		verify(recipeRepo).save(recipe);
 	}
+	@Test
 
+	public void test_update_instruction_edit_instruction_to_repo() {
+		// arrange
+		Recipe recipe = new Recipe();
+		Instruction instruction = new Instruction();
+		when(recipeRepo.findOne(3l)).thenReturn(recipe);
+		when(recipeRepo.save(recipe)).thenReturn(recipe);
+		when(instructionRepo.save(instruction)).thenReturn(instruction);
+
+		// act
+		Recipe actual = controller.updateInstruction(instruction, 3l, 1l);
+
+		// assert
+		assertThat(instruction.getId()).isEqualTo(1l);
+		assertThat(instruction.getRecipe()).isSameAs(recipe);
+
+		verify(instructionRepo).save(instruction);
+		verify(recipeRepo, times(2)).findOne(3l);
+		
+		
+	}		
+//SEE HERE THE UPDATE METHOD U KEEP LOOKING FOR
 	@Test
 	public void test_that_recipe_updates_and_saves_to_recipe_repo() {
 		// arrange
 		Recipe recipe = new Recipe();
+		when(recipeRepo.findOne(4l)).thenReturn(recipe);
 		when(recipeRepo.save(recipe)).thenReturn(recipe);
-
+		
 		// act
 		Recipe actualRecipe = controller.update(recipe, 4l);
 
 		// assert
-		assertThat(actualRecipe.getId()).isSameAs(recipe.getId());
+		assertThat(recipe.getId()).isEqualTo(4l);
+		assertThat(recipe.getTitle()).isSameAs(actualRecipe.getTitle());
+		assertThat(recipe.getDescription()).isSameAs(actualRecipe.getDescription());
+		assertThat(recipe.getMinutes()).isEqualTo(actualRecipe.getMinutes());
+		
 		verify(recipeRepo).save(recipe);
 	}
 
@@ -170,27 +216,7 @@ public class RecipeApiControllerTests {
 		verify(recipeRepo).save(recipe);
 	}
 
-	@Test
 
-	public void test_update_instruction_edit_instruction_to_repo() {
-
-		// arrange
-		Recipe recipe = new Recipe();
-		Instruction instruction = new Instruction();
-		when(recipeRepo.findOne(3l)).thenReturn(recipe);
-		when(recipeRepo.save(recipe)).thenReturn(recipe);
-		when(instructionRepo.save(instruction)).thenReturn(instruction);
-
-		// act
-		Recipe actual = controller.updateInstruction(instruction, 3l, 1l);
-
-		// assert
-		assertThat(instruction.getId()).isEqualTo(1l);
-		assertThat(instruction.getRecipe()).isSameAs(recipe);
-
-		verify(instructionRepo).save(instruction);
-		verify(recipeRepo, times(2)).findOne(3l);
-	}
 
 	@Test
 

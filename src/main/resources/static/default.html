@@ -5,7 +5,16 @@
 	</head>
 	
 	<body>
-		<h1>Hello, Josh!</h1>
+		<form id="create-recipe-form" method="post" action="/recipes">
+			<input id="title" required type="text" name="title" placeholder="Recipe Title">
+			<br>
+			<textarea id="description" required name="description" placeholder="Description"></textarea>
+			<br>
+			<input id="minutes" required type="number" name="minutes" placeholder="Minutes">
+			<br>
+			<button>Add Recipe</button>
+		</form>
+		
 		<ul id="recipe-list"></ul>
 		<div id="recipe-detail"></div>
 		

@@ -40,10 +40,10 @@ public class RecipeApiController {
         ingredients.add(new Ingredient("Pineapple", "Cups", 2d));
 
         List<Instruction> instructions = new ArrayList<Instruction>();
-        instructions.add(new Instruction("Flatten dough"));
-        instructions.add(new Instruction("Put sauce on dough"));
-        instructions.add(new Instruction("Put toppings on sauce"));
-        instructions.add(new Instruction("Bake at 350 for 25 minutes"));
+        instructions.add(new Instruction("Flatten dough", 1));
+        instructions.add(new Instruction("Put sauce on dough", 2));
+        instructions.add(new Instruction("Put toppings on sauce", 3));
+        instructions.add(new Instruction("Bake at 350 for 25 minutes", 4));
 
         recipeRepo.save(new Recipe("Pineapple Pepperoni Pizza", "Pizza with pineapples and pepperonis", 40, ingredients, instructions));
 
@@ -53,7 +53,7 @@ public class RecipeApiController {
     public List<Recipe> getAll(String partOfName) {
         List<Recipe> returnList;
         if (partOfName != null) {
-            returnList = recipeRepo.findByTitleContaining(partOfName);
+            returnList = recipeRepo.findByTitleContainingIgnoreCase(partOfName);
         } else {
             returnList = recipeRepo.findAll();
         }
@@ -87,8 +87,30 @@ public class RecipeApiController {
 
     @PutMapping("{id}")
     public Recipe update(@RequestBody Recipe recipe, @PathVariable long id) {
+    	Recipe existingRecipe = recipeRepo.findOne(id);
+    	existingRecipe.setTitle(recipe.getTitle());
+    	existingRecipe.setDescription(recipe.getDescription());
+    	existingRecipe.setMinutes(recipe.getMinutes());
         recipe.setId(id);
         return recipeRepo.save(recipe);
+    }
+    
+    @PutMapping("{id}/instructions/{ins_id}")
+    public Recipe updateInstruction(@RequestBody Instruction instruction, @PathVariable long id, @PathVariable long ins_id) {
+        Recipe recipe = recipeRepo.findOne(id);
+        instruction.setId(ins_id);
+        instruction.setRecipe(recipe);
+        instructionRepo.save(instruction);
+        return recipeRepo.findOne(id);
+    }
+    
+    @PutMapping("{id}/ingredients/{ing_id}")
+    public Recipe updateIngredient(@RequestBody Ingredient ingredient, @PathVariable long id, @PathVariable long ing_id) {
+        Recipe recipe = recipeRepo.findOne(id);
+        ingredient.setId(ing_id);
+        ingredient.setRecipe(recipe);
+        ingredientRepo.save(ingredient);
+        return recipeRepo.findOne(id);
     }
 
     @PostMapping("{recipeId}/ingredients")
@@ -117,7 +139,8 @@ public class RecipeApiController {
     public Recipe deleteAnIngredient(@PathVariable long id, @PathVariable long ing_id) {
         try {
             Recipe recipe = recipeRepo.findOne(id);
-            // Ingredient ingredient = ingredientRepo.findOne(ing_id);
+            
+            //Ingredient ingredient = ingredientRepo.findOne(ing_id);
             ingredientRepo.delete(ing_id);
             recipeRepo.flush();
             return recipe;

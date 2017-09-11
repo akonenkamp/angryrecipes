@@ -24,7 +24,13 @@ public class Ingredient {
 	@ManyToOne(optional=false)
 	private Recipe recipe;
 	
+<<<<<<< HEAD
+=======
+	@Column(nullable=false)
+>>>>>>> master
 	private String name;
+	
+	@Column(nullable=false)
 	private String unit;
 	
 	@Column(nullable=true)

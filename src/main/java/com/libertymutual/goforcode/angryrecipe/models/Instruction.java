@@ -15,26 +15,25 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 public class Instruction {
 
-<<<<<<< HEAD
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable=false)
     private String instruction;
-
-    @Column(nullable = true)
+    
+    @Column(nullable=true)
     private String instructionPictureURL;
-
+    
+    private Integer stepNumber;
+    
     @ManyToOne
     private Recipe recipe;
-
-    private String stepNumber;
-
-    public Instruction() {
-    }
-
-    public Instruction(String instruction, String stepNumber) {
+    
+    
+    public Instruction() {}
+    
+    public Instruction(String instruction, Integer stepNumber) {
         this.instruction = instruction;
         this.stepNumber = stepNumber;
     }
@@ -71,80 +70,12 @@ public class Instruction {
         this.instructionPictureURL = instructionPictureURL;
     }
 
-    public String getStepNumber() {
+    public Integer getStepNumber() {
         return stepNumber;
     }
 
-    public void setStepNumber(String stepNumber) {
+    public void setStepNumber(Integer stepNumber) {
         this.stepNumber = stepNumber;
     }
-=======
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
-
-	@Column(nullable=false)
-	private String instruction;
-	
-<<<<<<< HEAD
-	@ManyToOne(optional=false)
-=======
-	@Column(nullable=true)
-	private String instructionPictureURL;
-	
-	private Integer stepNumber;
-	
-	@ManyToOne
->>>>>>> master
-	private Recipe recipe;
-	
-	
-	public Instruction() {}
-	
-	public Instruction(String instruction, Integer stepNumber) {
-		this.instruction = instruction;
-		this.stepNumber = stepNumber;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getInstruction() {
-		return instruction;
-	}
-
-	public void setInstruction(String instruction) {
-		this.instruction = instruction;
-	}
-
-	public Recipe getRecipe() {
-		return recipe;
-	}
-
-	public void setRecipe(Recipe recipe) {
-		this.recipe = recipe;
-	}
-
-	public String getInstructionPictureURL() {
-		return instructionPictureURL;
-	}
-
-	public void setInstructionPictureURL(String instructionPictureURL) {
-		this.instructionPictureURL = instructionPictureURL;
-	}
->>>>>>> 7d789f90cb21c464aefa0f48162206ec09eee136
-
-	public Integer getStepNumber() {
-		return stepNumber;
-	}
-
-	public void setStepNumber(Integer stepNumber) {
-		this.stepNumber = stepNumber;
-	}
 
 }

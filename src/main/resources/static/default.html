@@ -1,0 +1,44 @@
+<!doctype html>
+
+<html>
+
+    <head>
+
+        <title>Our Simple Front-End</title>
+
+    </head>
+
+    
+
+    <body>
+
+ 		<form id="create-recipe-form" method="post" action="/recipes">
+ 			<input type="text" id="title" name="title" placeholder="Name of Recipe">
+ 			<br>
+ 			<textarea name="description" id="description" placeholder="describe it"></textarea>
+ 			<br>
+ 			<input type="number" id="minutes" placeholder="minutes">
+ 			<br>
+ 			<button type="submit">button</button>
+ 			
+ 		</form>
+ 		
+        <ul id="recipe-list"></ul>
+
+        <div id="recipe-detail"></div>
+
+        
+
+        <script
+
+              src="https://code.jquery.com/jquery-3.2.1.js"
+
+              integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+
+              crossorigin="anonymous"></script>
+
+        <script src="app.js"></script>
+
+    </body>
+
+</html>
